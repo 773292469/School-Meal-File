@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>School Meal Programme Inspection System - Google Drive Integration</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-utensils"></i>
+                <div class="logo-text">
+                    <h1>School Meal Programme Inspection</h1>
+                    <p>Wilgamuwa Education Zone - Ministry of Education</p>
+                </div>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-outline"><i class="fas fa-user"></i> Login</button>
+                <button class="btn btn-primary"><i class="fas fa-user-plus"></i> Register</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="sidebar">
+                <h3>Inspection Menu</h3>
+                <a href="#" class="nav-item active"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="#" class="nav-item"><i class="fas fa-clipboard-list"></i> New Inspection</a>
+                <a href="#" class="nav-item"><i class="fas fa-chart-bar"></i> Reports & Analytics</a>
+                <a href="#" class="nav-item"><i class="fas fa-database"></i> Data Management</a>
+                <a href="#" class="nav-item"><i class="fas fa-map-marker-alt"></i> School Locations</a>
+                <a href="#" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <a href="#" class="nav-item"><i class="fas fa-question-circle"></i> Help & Support</a>
+                
+                <div class="drive-integration">
+                    <div class="drive-header">
+                        <i class="fab fa-google-drive"></i>
+                        <h4>Google Drive</h4>
+                    </div>
+                    <div class="drive-status" id="drive-status">
+                        <i class="fas fa-unlink"></i>
+                        <span>Not connected to Google Drive</span>
+                    </div>
+                    <div class="drive-actions">
+                        <button class="btn btn-google" id="connect-drive-btn">
+                            <i class="fas fa-link"></i> Connect Drive
+                        </button>
+                        <button class="btn btn-google" id="sync-btn" disabled>
+                            <i class="fas fa-sync-alt"></i> Sync Data
+                        </button>
+                        <button class="btn btn-google" id="backup-btn" disabled>
+                            <i class="fas fa-download"></i> Backup Now
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="content-header">
+                    <h2>School Meal Programme Dashboard</h2>
+                    <button class="btn btn-success"><i class="fas fa-plus"></i> New Inspection</button>
+                </div>
+
+                <div class="setup-steps">
+                    <h3>Google Drive Integration Setup</h3>
+                    <p>Follow these steps to connect this application to your Google Drive:</p>
+                    
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Create a Google Cloud Project</h4>
+                            <p>Go to the <a href="https://console.cloud.google.com/" target="_blank">Google Cloud Console</a> and create a new project named "School Meal Inspection".</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Enable Google Drive API</h4>
+                            <p>In your project, navigate to "APIs & Services" > "Library", search for "Google Drive API", and enable it.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Configure OAuth Consent Screen</h4>
+                            <p>Set up the OAuth consent screen with your email (pwnpgunasekara@gmail.com) as the developer contact information.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <h4>Create Credentials</h4>
+                            <p>Create an OAuth 2.0 Client ID for a Web Application. Add authorized JavaScript origins and redirect URIs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <h4>Update Configuration</h4>
+                            <p>Replace the placeholder values in the code with your actual Client ID and API Key.</p>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="setup-complete">
+                        <i class="fas fa-check"></i> I've Completed Setup
+                    </button>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon bg-primary">
+                                <i class="fas fa-school"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">42</div>
+                        <div class="stat-title">Schools Inspected</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon bg-success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">38</div>
+                        <div class="stat-title">Satisfactory Reports</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon bg-warning">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">4</div>
+                        <div class="stat-title">Needs Improvement</div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-header">
+                            <div class="stat-icon bg-accent">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                        </div>
+                        <div class="stat-value">5,240</div>
+                        <div class="stat-title">Meals Served Daily</div>
+                    </div>
+                </div>
+
+                <h3>New Meal Programme Inspection</h3>
+                <p>Fill out the form below to record school meal programme inspection data:</p>
+                
+                <div class="location-verification">
+                    <div class="location-header">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h4>Location Verification</h4>
+                    </div>
+                    <p>Please verify your location to ensure you are at the school premises.</p>
+                    
+                    <div class="location-status status-pending">
+                        <i class="fas fa-clock"></i>
+                        <span>Location verification pending</span>
+                    </div>
+                    
+                    <div class="location-map">
+                        <div id="map-placeholder">
+                            <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 10px;"></i>
+                            <p>Click below to verify your location</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="location-notes">Location Notes</label>
+                        <textarea id="location-notes" rows="2" placeholder="Add any notes about your location verification"></textarea>
+                    </div>
+                    
+                    <button class="btn btn-primary" id="get-location">
+                        <i class="fas fa-location-arrow"></i> Verify My Location
+                    </button>
+                    <button class="btn btn-success" id="location-verified" disabled>
+                        <i class="fas fa-check-circle"></i> Confirm Location Verification
+                    </button>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="form-card">
+                        <h4>School Information</h4>
+                        <div class="form-group">
+                            <label for="school-name">School Name *</label>
+                            <select id="school-name" required>
+                                <option value="">Select school</option>
+                                <option value="04118">04118 MINIPURA VIJAYA M.V.</option>
+                                <option value="04119">04119 NAMINI OYA M.M.V.</option>
+                                <option value="04120">04120 PALLEGAMA M.M.V.</option>
+                                <option value="04121">04121 MARAKA M.V.</option>
+                                <option value="04122">04122 HANDUNGAMUWA M.V.</option>
+                                <option value="04123">04123 NUGAGOLLA M.V.</option>
+                                <option value="04124">04124 MEDAKANDA K.V.</option>
+                                <option value="04125">04125 RANAMURE K.V.</option>
+                                <option value="04126">04126 SONUTHTHARA K.V.</option>
+                                <option value="04128">04128 IMADUWAYAYA P.V.</option>
+                                <option value="04129">04129 SRI AGRABODHI K.V.</option>
+                                <option value="04130">04130 KIULAWADIYA P.V.</option>
+                                <option value="04131">04131 KUMBUKANDANA P.V.</option>
+                                <option value="04134">04134 NARANGAMUWA P.V.</option>
+                                <option value="04135">04135 BOGAHAWAWE K.V.</option>
+                                <option value="04137">04137 MAHAWATHANNA P.V.</option>
+                                <option value="04138">04138 MORAGAHA ULPATHA P.V.</option>
+                                <option value="04139">04139 RAMBUKOLUWA K.V.</option>
+                                <option value="04140">04140 LEDIYANGALA P.V.</option>
+                                <option value="04141">04141 LELOYA P.V.</option>
+                                <option value="04142">04142 WILGAMUWA P.V.</option>
+                                <option value="04143">04143 HATHTHOTA AMUNA M.V.</option>
+                                <option value="04144">04144 KEKALATHANNA K.V.</option>
+                                <option value="04145">04145 NUWARAYAYA P.V.</option>
+                                <option value="04146">04146 PUSSALLAYAYA P.V.</option>
+                                <option value="04147">04147 RADUNNAWewA P.V.</option>
+                                <option value="04148">04148 HIMBILIYAKADA P.V.</option>
+                                <option value="04149">04149 GURUWELAYAYA K.V.</option>
+                                <option value="04152">04152 MAHALAKOTUWA SRI SUMANA M.V.</option>
+                                <option value="04153">04153 PUWAKPITIYA K.V.</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="inspector-name">Inspector Name *</label>
+                            <input type="text" id="inspector-name" placeholder="Enter inspector name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="inspection-date">Inspection Date *</label>
+                            <input type="date" id="inspection-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="school-type">School Type</label>
+                            <select id="school-type">
+                                <option value="">Select school type</option>
+                                <option value="national">National School</option>
+                                <option value="provincial">Provincial School</option>
+                                <option value="private">Private School</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-card">
+                        <h4>Documentation Check</h4>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doc1">
+                            <label for="doc1">Copy of student nutrition status report available</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doc2">
+                            <label for="doc2">Officer's regulation notebook available</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doc3">
+                            <label for="doc3">Public health inspectors' notebook available</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doc4">
+                            <label for="doc4">Copy of food supplier's agreement available</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doc5">
+                            <label for="doc5">Class-level daily food menu distribution records available</label>
+                        </div>
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="doc6">
+                            <label for="doc6">Food sample kept until school ends</label>
+                        </div>
+                    </div>
+                    
+                    <div class="form-card">
+                        <h4>Hygiene & Quality Assessment</h4>
+                        <div class="form-group">
+                            <label for="hand-washing">Hand washing with soap (before & after eating)</label>
+                            <select id="hand-washing">
+                                <option value="">Select status</option>
+                                <option value="excellent">Excellent</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                                <option value="poor">Poor</option>
+                                <option value="na">Not Applicable</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="food-quality">Quality of provided meals</label>
+                            <select id="food-quality">
+                                <option value="">Select quality</option>
+                                <option value="excellent">Excellent</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                                <option value="poor">Poor</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="menu-compliance">Menu compliance with approved food menu</label>
+                            <select id="menu-compliance">
+                                <option value="">Select compliance</option>
+                                <option value="full">Full Compliance</option>
+                                <option value="partial">Partial Compliance</option>
+                                <option value="none">No Compliance</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="waste-disposal">Waste disposal</label>
+                            <select id="waste-disposal">
+                                <option value="">Select status</option>
+                                <option value="proper">Proper</option>
+                                <option value="improper">Improper</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="maintenance">Maintenance performed</label>
+                            <select id="maintenance">
+                                <option value="">Select status</option>
+                                <option value="excellent">Excellent</option>
+                                <option value="good">Good</option>
+                                <option value="fair">Fair</option>
+                                <option value="poor">Poor</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-card">
+                        <h4>Additional Information</h4>
+                        <div class="form-group">
+                            <label for="meal-photo">Meal Photo *</label>
+                            <input type="file" id="meal-photo" accept="image/*" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="overall-rating">Overall Programme Rating</label>
+                            <select id="overall-rating">
+                                <option value="">Select rating</option>
+                                <option value="5">Excellent (5)</option>
+                                <option value="4">Good (4)</option>
+                                <option value="3">Satisfactory (3)</option>
+                                <option value="2">Needs Improvement (2)</option>
+                                <option value="1">Unsatisfactory (1)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="notes">Additional Notes</label>
+                            <textarea id="notes" rows="4" placeholder="Enter any additional observations or comments"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="signature">Inspector Signature</label>
+                            <input type="text" id="signature" placeholder="Enter your full name as signature">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button class="btn btn-outline" style="color: var(--dark); border-color: var(--dark);">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button class="btn btn-primary" id="save-drive" disabled>
+                        <i class="fab fa-google-drive"></i> Save to Drive
+                    </button>
+                    <button class="btn btn-success" id="submit-report" disabled>
+                        <i class="fas fa-check"></i> Submit Report
+                    </button>
+                </div>
+                
+                <h3 style="margin-top: 40px;">Recent Inspection Reports</h3>
+                <div class="table-responsive">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>School Name</th>
+                                <th>Inspection Date</th>
+                                <th>Inspector</th>
+                                <th>Location Verified</th>
+                                <th>Drive Sync</th>
+                                <th>Overall Rating</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="reports-table-body">
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: 20px;">
+                                    <i class="fas fa-database" style="font-size: 2rem; color: #ddd; margin-bottom: 10px;"></i>
+                                    <p>No reports found. Connect to Google Drive to load data.</p>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="drive-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Google Drive Integration</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div id="modal-body">
+                <div class="form-group">
+                    <label for="drive-action">Select Action</label>
+                    <select id="drive-action">
+                        <option value="backup">Backup All Data</option>
+                        <option value="restore">Restore from Backup</option>
+                        <option value="sync">Sync Recent Changes</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="drive-folder">Drive Folder</label>
+                    <input type="text" id="drive-folder" value="School Meal Inspection Reports" placeholder="Enter folder name">
+                </div>
+                <div class="form-group">
+                    <label for="backup-name">Backup Name</label>
+                    <input type="text" id="backup-name" value="meal-inspection-backup-2023" placeholder="Enter backup name">
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-outline" style="color: var(--dark); border-color: var(--dark);" id="cancel-drive">
+                        Cancel
+                    </button>
+                    <button class="btn btn-primary" id="execute-drive">
+                        <i class="fab fa-google-drive"></i> Execute
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>School Meal Programme Inspection System © 2023 - Wilgamuwa Education Zone</p>
+            <p>Version 2.0 | Google Drive Integration | For official use only</p>
+        </div>
+    </footer>
+
+    <!-- Google API Client library -->
+    <script src="https://apis.google.com/js/api.js"></script>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
